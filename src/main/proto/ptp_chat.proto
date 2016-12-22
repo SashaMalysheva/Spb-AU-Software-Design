@@ -1,0 +1,11 @@
+syntax = "proto3";
+option java_package = "spbau.sashamalysheva.chat.core.impl";
+
+service PtpServer {
+    rpc Ptp(stream Message) returns(stream Message) {}
+}
+
+message Message{
+    int32 type = 1; // user info (0) or plain message (1)
+    string text = 2;
+}
