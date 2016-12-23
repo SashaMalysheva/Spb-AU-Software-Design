@@ -1,8 +1,11 @@
 package shell.commands;
 
+import shell.Environment;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintStream;
+import java.nio.file.Path;
 import java.util.Scanner;
 
 /**
@@ -26,7 +29,8 @@ public class Cat extends Command {
                 }
             } else {
                 for (int i = 1; i < args.length; i++) {
-                    try (Scanner scanner = new Scanner(new File(args[i]))) {
+                    Path path = Environment.getInstance().getCurrentWorkingDirectory().resolve(args[1]);
+                    try (Scanner scanner = new Scanner(path)) {
                         while (scanner.hasNextLine()) {
                             String line = scanner.nextLine();
                             printStream.println(line);

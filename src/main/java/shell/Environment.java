@@ -3,8 +3,11 @@ package shell;
 import shell.commands.*;
 import shell.syntax.CommandNode;
 
+import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Hashtable;
 import java.util.Map;
 
@@ -23,11 +26,14 @@ public class Environment {
 
     private Map<String, String> variables = new Hashtable<>();
     private Map<String, Class<?>> commands = new Hashtable<>();
+    private Path currentWorkingDirectory = Paths.get("").toAbsolutePath();
 
     /**
      * inits map: command name -> command class
      */
     public Environment() {
+        commands.put("ls", Ls.class);
+        commands.put("cd", Cd.class);
         commands.put("grep", Grep.class);
         commands.put("$=", Assignment.class);
         commands.put("echo", Echo.class);
@@ -60,5 +66,13 @@ public class Environment {
         } else {
             return new Other(commandNode.getArgs());
         }
+    }
+
+    public Path getCurrentWorkingDirectory() {
+        return currentWorkingDirectory;
+    }
+
+    public void setCurrentWorkingDirectory(Path currentWorkingDirectory) {
+        this.currentWorkingDirectory = currentWorkingDirectory;
     }
 }
