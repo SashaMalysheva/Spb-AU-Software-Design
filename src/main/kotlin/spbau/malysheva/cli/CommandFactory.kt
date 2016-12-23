@@ -9,5 +9,11 @@ package spbau.malysheva.cli
  * @see CommandManager
  */
 interface CommandFactory {
+    /**
+     * Create a command.
+     * By convention, first argument  is a name of command.
+     *
+     * @param [arguments] command arguments.
+     */
     fun create(arguments: List<String>): Command
 }

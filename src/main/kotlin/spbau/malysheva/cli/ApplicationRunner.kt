@@ -6,7 +6,7 @@ package spbau.malysheva.cli
  * @author Sasha Malysheva
  *
  * @see Application
- * @see Application#run
+ * @see Application.run
  */
 fun main(args: Array<String>) {
     Application().run()

@@ -29,6 +29,9 @@ object CommandManager {
         commandFactories[commandName] = commandFactory
     }
 
+    /**
+     * Creates a [CommandFactory] by [creator] and registers it.
+     */
     fun registerCommandFactory(commandName: String, creator: (List<String>) -> Command) {
         commandFactories[commandName] = object : CommandFactory {
             override fun create(arguments: List<String>) = creator(arguments)
