@@ -9,5 +9,12 @@ import java.io.InputStream
  * @see CommandManager
  */
 interface Command {
+
+    /**
+     * Executes the command.
+     *
+     * @param [stream] command input.
+     * @return the result of command.
+     */
     fun execute(stream: InputStream = "".byteInputStream()): InputStream
 }

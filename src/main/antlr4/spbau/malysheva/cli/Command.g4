@@ -3,8 +3,8 @@ grammar Command;
 @header{
 import java.util.Arrays;
 import java.util.List;
-import java.util.Iterator;
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  *  CLI Parser Generator via ANTLR4
@@ -21,12 +21,14 @@ import java.util.ArrayList;
 }
 
 command_line returns[List<Command> commands]
-    : piped_commands { $commands = $piped_commands.commands; }
+    :
+    | EOF { $commands = Collections.emptyList(); }
+    | piped_commands { $commands = $piped_commands.commands; }
     | enviroment_command { $commands = Arrays.asList($enviroment_command.cmd); }
     ;
 
 piped_commands returns[List<Command> commands]
-    : fst=command { $commands = Arrays.asList($fst.cmd); }
+    : fst=command { $commands = new ArrayList<>(); $commands.add($fst.cmd); }
     ( PIPE nxt=command { $commands.add($nxt.cmd); })*
     ;
 
