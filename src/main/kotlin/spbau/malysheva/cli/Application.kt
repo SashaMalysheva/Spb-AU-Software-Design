@@ -27,7 +27,8 @@ class Application() {
      * Initializes & registers all command factories that available in CLI
      */
     init {
-        CommandManager.registerCommandFactory("cat") { CatCommand(it[2]) }
+        CommandManager.registerCommandFactory("exit") { ExitCommand() }
+        CommandManager.registerCommandFactory("cat") { CatCommand(it[1]) }
         CommandManager.registerCommandFactory("echo") { EchoCommand(it.subList(1, it.size)) }
         CommandManager.registerCommandFactory("wc") { WcCommand() }
         CommandManager.registerCommandFactory("pwd") { PwdCommand() }
