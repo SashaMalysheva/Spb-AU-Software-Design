@@ -3,10 +3,7 @@ package spbau.malysheva.cli
 import org.antlr.v4.runtime.ANTLRInputStream
 import org.antlr.v4.runtime.CommonTokenStream
 import org.apache.commons.io.IOUtils
-import spbau.malysheva.cli.commands.CatCommand
-import spbau.malysheva.cli.commands.EchoCommand
-import spbau.malysheva.cli.commands.PwdCommand
-import spbau.malysheva.cli.commands.WcCommand
+import spbau.malysheva.cli.commands.*
 import java.io.InputStream
 
 /**
@@ -32,6 +29,9 @@ class Application() {
         CommandManager.registerCommandFactory("echo") { EchoCommand(it.subList(1, it.size)) }
         CommandManager.registerCommandFactory("wc") { WcCommand() }
         CommandManager.registerCommandFactory("pwd") { PwdCommand() }
+        CommandManager.registerCommandFactory("grep") {
+            GrepCommand(getGrepArguments(it.subList(1, it.size).toTypedArray()))
+        }
     }
 
     /**
