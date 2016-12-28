@@ -29,7 +29,7 @@ class Application() {
         CommandManager.registerCommandFactory("echo") { EchoCommand(it.subList(1, it.size)) }
         CommandManager.registerCommandFactory("wc") { WcCommand() }
         CommandManager.registerCommandFactory("pwd") { PwdCommand() }
-        CommandManager.registerCommandFactory("grep"){
+        CommandManager.registerCommandFactory("grep") {
             GrepCommand(getGrepArguments(it.subList(1, it.size).toTypedArray()))
         }
     }
