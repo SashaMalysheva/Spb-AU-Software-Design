@@ -22,7 +22,7 @@ data class GrepArguments(val insensivity: Boolean,
 fun getGrepArguments(args : Array<String>) : GrepArguments {
     val cl = DefaultParser().parse(grepOptions, args)
     return GrepArguments(
-            !cl.hasOption('i'),
+            cl.hasOption('i'),
             if (cl.hasOption('A')) Integer.parseInt(cl.getOptionValue('A')) else 1,
             cl.hasOption('w'),
             if (!cl.args.isEmpty()) cl.args[0] else throw IllegalArgumentException("regex is missing")

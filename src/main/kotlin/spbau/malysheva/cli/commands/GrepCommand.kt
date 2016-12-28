@@ -27,10 +27,11 @@ class GrepCommand(val args: GrepArguments) : Command {
         }
         val regex = Regex(args.regex, regexOpt)
         lines.forEachIndexed { i, s ->
-            var res = regex.matchEntire(s)
+            var res = regex.find(s)
             if (args.forceWordMatching) {
                 while (res != null) {
-                    if (s[res.range.start - 1] != ' ' || s[res.range.last + 1] != ' ') {
+                    if ((res.range.start != 0 && s[res.range.start - 1].isLetterOrDigit()) ||
+                            (res.range.last + 1 != s.length && s[res.range.last + 1].isLetterOrDigit())) {
                         res = res.next()
                     } else {
                         break
