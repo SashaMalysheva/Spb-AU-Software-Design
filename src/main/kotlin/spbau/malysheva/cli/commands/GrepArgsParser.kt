@@ -16,7 +16,8 @@ val grepOptions = Options()
 data class GrepArguments(val insensivity: Boolean,
                          val printedLines : Int,
                          val forceWordMatching : Boolean,
-                         val regex : String
+                         val regex : String,
+                         val inputFile : String?
 )
 
 fun getGrepArguments(args : Array<String>) : GrepArguments {
@@ -25,6 +26,7 @@ fun getGrepArguments(args : Array<String>) : GrepArguments {
             cl.hasOption('i'),
             if (cl.hasOption('A')) Integer.parseInt(cl.getOptionValue('A')) else 1,
             cl.hasOption('w'),
-            if (!cl.args.isEmpty()) cl.args[0] else throw IllegalArgumentException("regex is missing")
+            if (!cl.args.isEmpty()) cl.args[0] else throw IllegalArgumentException("regex is missing"),
+            cl.args.getOrNull(1)
         )
 }

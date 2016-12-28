@@ -2,6 +2,7 @@ package spbau.malysheva.cli.commands
 
 import spbau.malysheva.cli.Command
 import java.io.InputStream
+import java.nio.file.Paths
 import java.util.*
 
 /**
@@ -19,7 +20,12 @@ class GrepCommand(val args: GrepArguments) : Command {
      * @return a stream that contains result
      */
     override fun execute(stream: InputStream): InputStream {
-        val lines = stream.reader().readLines()
+        val input = if (args.inputFile == null) {
+            stream
+        } else {
+            Paths.get(args.inputFile).toFile().inputStream()
+        }
+        val lines = input.reader().readLines()
         val sb = StringBuilder()
         val regexOpt = HashSet<RegexOption>()
         if (args.insensivity) {
