@@ -28,7 +28,7 @@ class Application() {
      */
     init {
         CommandManager.registerCommandFactory("exit") { ExitCommand() }
-        CommandManager.registerCommandFactory("cat") { CatCommand(it[1]) }
+        CommandManager.registerCommandFactory("cat") { CatCommand(it.getOrNull(1)) }
         CommandManager.registerCommandFactory("echo") { EchoCommand(it.subList(1, it.size)) }
         CommandManager.registerCommandFactory("wc") { WcCommand() }
         CommandManager.registerCommandFactory("pwd") { PwdCommand() }

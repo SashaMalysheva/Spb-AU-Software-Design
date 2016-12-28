@@ -26,4 +26,9 @@ class CatCommandTest {
         Files.delete(test)
     }
 
+    @Test
+    fun executeOnNull() {
+        assertEquals(TEST_CONTENT, CatCommand().execute(TEST_CONTENT.byteInputStream()).reader().readText())
+    }
+
 }
