@@ -7,6 +7,8 @@ import java.nio.file.Paths;
 
 /**
  * Created by the7winds on 11.09.16.
+ *
+ * @see Environment#getCurrentWorkingDirectory()
  */
 public class Pwd extends Command {
 

@@ -12,6 +12,8 @@ import java.nio.file.Paths;
  * 'cd' Command.
  *
  * Change the current working directory.
+ *
+ * @see Environment#setCurrentWorkingDirectory(Path)
  */
 public final class Cd extends Command {
 
@@ -19,8 +21,15 @@ public final class Cd extends Command {
         super(args);
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * Sets the current working directory.
+     *
+     * @throws IOException if i/o error occurred.
+     */
     @Override
-    void execute() throws Exception {
+    public void execute() throws Exception {
         Path directory = Environment.getInstance()
                 .getCurrentWorkingDirectory()
                 .resolve(Paths.get(args[1]));

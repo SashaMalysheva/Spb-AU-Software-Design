@@ -12,6 +12,8 @@ import java.io.File;
  * 'ls' Command.
  *
  * List files on the current working directory.
+ *
+ * @see Environment#getCurrentWorkingDirectory()
  */
 public final class Ls extends  Command {
 
@@ -19,11 +21,18 @@ public final class Ls extends  Command {
         super(args);
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * Lists files on th current working directory.
+     *
+     * @throws IOException if i/o error occurred.
+     */
     @Override
     public void execute() throws IOException {
         Path directory = Environment.getInstance().getCurrentWorkingDirectory();
         final StringBuilder sb = new StringBuilder();
-        Files.list(directory).forEach(child -> {
+        Files.list(directory).sorted().forEach(child -> {
             sb.append(child.getFileName());
             sb.append(' ');
         });

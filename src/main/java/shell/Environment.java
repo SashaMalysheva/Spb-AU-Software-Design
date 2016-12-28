@@ -16,7 +16,7 @@ import java.util.Map;
  */
 
 /**
- * Contains all shell data like variables and command's name mapping.
+ * Contains all shell data like variables, command's name mapping, working directory.
  * Provides methods to assign variables and get command class by name.
  */
 
@@ -68,10 +68,18 @@ public class Environment {
         }
     }
 
+    /**
+     *
+     * @return current working directory
+     */
     public Path getCurrentWorkingDirectory() {
         return currentWorkingDirectory;
     }
 
+    /**
+     *
+     * @param currentWorkingDirectory new working directory
+     */
     public void setCurrentWorkingDirectory(Path currentWorkingDirectory) {
         this.currentWorkingDirectory = currentWorkingDirectory;
     }
