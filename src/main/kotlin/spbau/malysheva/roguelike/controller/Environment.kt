@@ -9,8 +9,14 @@ import java.util.*
 const val HEIGHT = 15
 const val WIDTH = 15
 
+/**
+ * Game environment. User can change the game using this singleton
+ */
 object Environment {
 
+    /**
+     * All known commands
+     */
     val commandMap = arrayOf(
             MoveUp,
             MoveDown,
@@ -26,16 +32,26 @@ object Environment {
     var world: World? = null
     var view: WorldView? = null
 
+    /**
+     * Loads saved game
+     */
     fun loadGame(stream: InputStream) {
         init(load(stream, MY_FACTORIES))
     }
 
+    /**
+     * Save current game
+     */
     fun saveGame(stream: OutputStream) {
         val currentWorld = world
         currentWorld ?: throw IllegalStateException("no world to save")
         currentWorld.save(stream, MY_SERIALIZATION_PROVIDER)
     }
 
+
+    /**
+     * Creates new game
+     */
     fun newGame() {
         init(World(HEIGHT, WIDTH, SimpleProportionGenerator(
                 spaceProportion = 10,
@@ -46,11 +62,16 @@ object Environment {
         )))
     }
 
-    fun init(newWorld: World) {
+    private fun init(newWorld: World) {
         world = newWorld
         view = WorldView(newWorld, System.out.bufferedWriter())
     }
 
+    /**
+     * Executes a commands by its presentation
+     *
+     * @see commandMap
+     */
     fun execute(commandPresentation: String) {
         val command = commandMap[commandPresentation]
         if (command == null) {

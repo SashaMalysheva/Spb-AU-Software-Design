@@ -13,14 +13,35 @@ val DEFAULT_HEALTH = 10
 val DEFAULT_DAMAGE = 3
 val DEFAULT_LUCK = 0
 
+/**
+ * The movable 'live' entity.
+ *
+ * @param initHealth the health of the entity on the creation
+ * @param initDamage the damage power of the entity on the creation
+ * @param initLuck the luck of the entity on the creation
+ */
 open class Creature(initHealth: Int = DEFAULT_HEALTH,
                     initDamage: Int = DEFAULT_DAMAGE,
                     initLuck: Int = DEFAULT_LUCK) : Entity() {
 
+    /**
+     * the health of the creature. Will decrease of the entity will be attacked by another.
+     * If becomes less then 0, the entity will be removed from the world
+     */
     var health = initHealth
+    /**
+     * the constant damage power of the creature.
+     */
     var damage = initDamage
+    /**
+     * the probable damage power increase of the creature.
+     */
     var luck = initLuck
 
+    /**
+     * the move strategy of th creature.
+     * use it to move creatures on the world map.
+     */
     var moveStrategy = DEFAULT_STRATEGY
 
     override fun getNextMoveDirection() = moveStrategy(this)
@@ -63,6 +84,9 @@ open class Creature(initHealth: Int = DEFAULT_HEALTH,
     }
 }
 
+/**
+ * The creature that belongs to user. One per world.
+ */
 class Player(initHealth: Int = DEFAULT_HEALTH,
              initDamage: Int = DEFAULT_DAMAGE,
              initLuck: Int = DEFAULT_LUCK)
@@ -71,11 +95,17 @@ class Player(initHealth: Int = DEFAULT_HEALTH,
     override fun <R> accept(visitor: EntityVisitor<R>) = visitor.visitPlayer(this)
 }
 
+/**
+ * the empty space on the world map
+ */
 class Space() : Entity() {
 
     override fun <R> accept(visitor: EntityVisitor<R>) = visitor.visitSpace(this)
 }
 
+/**
+ * the obstacle on the map
+ */
 class Block() : Entity() {
 
     override fun <R> accept(visitor: EntityVisitor<R>) = visitor.visitBlock(this)
@@ -83,11 +113,20 @@ class Block() : Entity() {
 
 // factories
 
+/**
+ * Base creature factory class.
+ *
+ * @see withStrategy
+ * @see withParams
+ */
 abstract class AbstractCreatureFactory : EntityFactory {
 
     override abstract fun create(): Creature
 }
 
+/**
+ * Adds a initial [strategy] parameter to the creature factory.
+ */
 fun AbstractCreatureFactory.withStrategy(strategy: (Creature) -> Direction) : AbstractCreatureFactory {
     return object : AbstractCreatureFactory(){
 
@@ -99,6 +138,9 @@ fun AbstractCreatureFactory.withStrategy(strategy: (Creature) -> Direction) : Ab
     }
 }
 
+/**
+ * Adds intial basic parameters to the creature factory
+ */
 fun AbstractCreatureFactory.withParams(health: Int = -1, damage: Int = -1, luck: Int = -1) : AbstractCreatureFactory{
     return object : AbstractCreatureFactory(){
 
@@ -118,18 +160,30 @@ fun AbstractCreatureFactory.withParams(health: Int = -1, damage: Int = -1, luck:
     }
 }
 
+/**
+ * Base creature factory
+ */
 object CreatureFactory : AbstractCreatureFactory() {
     override fun create() = Creature()
 }
 
+/**
+ * Base player factory
+ */
 object PlayerFactory : AbstractCreatureFactory() {
     override fun create() = Player()
 }
 
+/**
+ * Base space factory
+ */
 object SpaceFactory : EntityFactory {
     override fun create() = Space()
 }
 
+/**
+ * Base block factory
+ */
 object BlockFactory : EntityFactory {
     override fun create() = Block()
 }

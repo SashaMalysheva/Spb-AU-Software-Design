@@ -2,12 +2,30 @@ package spbau.malysheva.roguelike.model
 
 import java.util.*
 
-
+/**
+ * Utility interface for [World] map generation
+ */
 interface WorldGenerator {
 
+    /**
+     * @return a newly generated entity for ([x], [y]) field on the map
+     */
     fun generate(x: Int, y: Int): Entity
 }
 
+/**
+ * A simple [WorldGenerator] implementation, working on java [Random] facility
+ *
+ * @param spaceProportion proportion of [Space] entities on the map
+ * @param blockProportion proportion of [Block] entities on the map
+ * @param creatureProportion proportion of [Creature] entities on the map
+ *
+ * @param mobFactory [Creature] supplier that's ruled by pc
+ * @param playerFactory [Player] supplier
+ *
+ * @param worldHeight world height - needs to create border around the world
+ * @param worldWidth world width - same
+ */
 class SimpleProportionGenerator(
         val random: Random = Random(),
         spaceProportion: Int = 1,

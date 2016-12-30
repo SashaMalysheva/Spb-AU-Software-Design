@@ -3,7 +3,9 @@ package spbau.malysheva.roguelike.controller
 import spbau.malysheva.roguelike.model.Direction
 import java.nio.file.Paths
 
-
+/**
+ * command: move player up
+ */
 object MoveUp : Command {
     override val id = "u"
 
@@ -14,6 +16,9 @@ object MoveUp : Command {
     }
 }
 
+/**
+ * command: move player down
+ */
 object MoveDown : Command {
     override val id = "d"
 
@@ -24,6 +29,9 @@ object MoveDown : Command {
     }
 }
 
+/**
+ * command: move player left
+ */
 object MoveLeft : Command {
     override val id = "l"
 
@@ -34,6 +42,9 @@ object MoveLeft : Command {
     }
 }
 
+/**
+ * command: move player right
+ */
 object MoveRight : Command {
     override val id = "r"
 
@@ -44,6 +55,9 @@ object MoveRight : Command {
     }
 }
 
+/**
+ * creates new game
+ */
 object NewGame : Command {
     override val id = ":new"
 
@@ -52,6 +66,9 @@ object NewGame : Command {
     }
 }
 
+/**
+ * loads game from '.world' file
+ */
 object LoadGame : Command {
     override val id = ":load"
 
@@ -62,6 +79,9 @@ object LoadGame : Command {
     }
 }
 
+/**
+ * saves current game to '.world' file
+ */
 object SaveGame : Command {
     override val id = ":save"
 

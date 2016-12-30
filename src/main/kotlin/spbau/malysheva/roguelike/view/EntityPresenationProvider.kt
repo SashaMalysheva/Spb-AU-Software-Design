@@ -2,6 +2,11 @@ package spbau.malysheva.roguelike.view
 
 import spbau.malysheva.roguelike.model.*
 
+/**
+ * Provides mapping between entity and its presentation on the screen
+ *
+ * @see EntityVisitor
+ */
 object EntityPresenationProvider : EntityVisitor<Char>() {
 
     override fun visitPlayer(player: Player) = 'p'
