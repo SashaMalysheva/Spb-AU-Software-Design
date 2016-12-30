@@ -32,7 +32,7 @@ open class Creature(initHealth: Int = DEFAULT_HEALTH,
             val thisDamage = damage + ENTITY_RANDOM.nextInt(luck + 1)
             val thatDamage = creature.damage + ENTITY_RANDOM.nextInt(creature.luck + 1)
             health -= thatDamage
-            creature.health += thisDamage
+            creature.health -= thisDamage
             if (creature.health < 1) {
                 val creatureField = creature.field ?: return
                 val field = field ?: return
